@@ -262,7 +262,7 @@ async function submitQuiz() {
   try {
     const API_BASE = window.location.hostname === 'localhost'
       ? ''
-      : 'https://career-matcher-production.up.railway.app';
+      : 'https://career-matcher-server.onrender.com';
     const response = await fetch(API_BASE + '/api/analyze', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
