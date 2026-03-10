@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>מה הדרך שלך? | כלי התאמת קריירה לנשים</title>
+  <meta name="description" content="שאלון חכם שמגלה לך תחומי קריירה שמתאימים לאישיות, לכישורים ולחלומות שלך." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app-wrap">
+
+  <!-- ===== Landing Screen ===== -->
+  <section id="landing" class="screen active">
+    <div class="landing-logo">🧭</div>
+    <h1 class="landing-title">מה הדרך שלך?</h1>
+    <p class="landing-sub">
+      שאלון חכם שיגלה לך תחומי קריירה שמתאימים לאישיות, לכישורים ולחלומות שלך.
+    </p>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⏱</div>
+        <span>כ-10 דקות, שאלות בחירה בלבד</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎯</div>
+        <span>תוצאות מותאמות אישית — לא גנריות</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🤖</div>
+        <span>ניתוח מעמיק בעזרת AI</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📚</div>
+        <span>כיווני לימוד ומקצועות ספציפיים לכל תחום</span>
+      </div>
+    </div>
+
+    <button class="btn-start" onclick="startQuiz()">
+      מתחילות →
+    </button>
+    <p class="landing-note">חינמי לחלוטין · ללא הרשמה</p>
+  </section>
+
+  <!-- ===== Quiz Screen ===== -->
+  <section id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="progress-row">
+        <span class="section-label" id="section-label">על עצמך</span>
+        <span id="progress-text">1 מתוך 30</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <div class="question-card" id="question-card">
+      <!-- נטען דינמית -->
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn-nav btn-back" id="btn-back" onclick="goBack()" style="display:none">
+        חזרה →
+      </button>
+      <button class="btn-nav btn-next" id="btn-next" onclick="goNext()" disabled>
+        ← הבאה
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== Loading Screen ===== -->
+  <section id="loading" class="screen">
+    <div class="loading-icon">🔍</div>
+    <div class="loading-title">מנתחת את התשובות שלך...</div>
+    <div class="loading-steps" id="loading-steps">
+      <!-- נטען דינמית -->
+    </div>
+  </section>
+
+  <!-- ===== Timing Screen ===== -->
+  <section id="timing" class="screen">
+    <div class="timing-wrap">
+      <div class="timing-icon">✨</div>
+      <h2 class="timing-title">כמעט שם!</h2>
+      <p class="timing-sub">רק שאלה אחת קטנה לפני שנראה לך את התוצאות —<br>כמה מהר את רוצה להתחיל לנוע?</p>
+      <div class="timing-options">
+        <button class="timing-btn" data-value="now" onclick="selectTiming(this)">
+          🔥 עכשיו — אני מוכנה לצעד הראשון
+        </button>
+        <button class="timing-btn" data-value="months" onclick="selectTiming(this)">
+          📅 בחודשים הקרובים — עדיין בוחנת
+        </button>
+        <button class="timing-btn" data-value="year" onclick="selectTiming(this)">
+          🗓 בשנה הקרובה — עדיין מתכננת
+        </button>
+        <button class="timing-btn" data-value="exploring" onclick="selectTiming(this)">
+          🔍 פשוט סקרנית לראות מה יצא
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Results Screen ===== -->
+  <section id="results" class="screen">
+    <div class="results-header">
+      <h2>הנה הכיוונים שלך</h2>
+      <p>על סמך כל מה שסיפרת לנו</p>
+    </div>
+
+    <div class="results-body">
+
+      <!-- גרף כישורים -->
+      <div id="radar-container"></div>
+
+      <!-- ניתוח אישי -->
+      <div class="insight-card" id="insight-card">
+        <div class="insight-label">✨ ניתוח אישי</div>
+        <p class="insight-text" id="insight-text">...</p>
+        <div class="ai-label" id="ai-label" style="display:none; margin-top:10px;">
+          <span>🤖</span>
+          <span>נוצר בעזרת AI על פי התשובות שלך</span>
+        </div>
+      </div>
+
+      <!-- ההתאמות -->
+      <div class="matches-section">
+        <h3>התחומים שמתאימים לך</h3>
+        <div id="matches-container">
+          <!-- נטען דינמית -->
+        </div>
+      </div>
+
+      <!-- CTA — איטה שיין -->
+      <div class="cta-card">
+
+        <!-- כותרת ומבוא -->
+        <div class="cta-intro">
+          <div class="cta-greeting">איזה כיף, יש לנו כיוון! 👋</div>
+          <p class="cta-intro-text">
+            אני יודעת שזה יכול להרגיש קצת מרעיד בבטן – הרגע הזה שבו את מחליטה
+            לצאת לדרך חדשה, לעשות שינוי בקריירה או פשוט לעמוד מול מעסיק
+            ולקוות שהפעם זה זה.
+          </p>
+
+          <!-- פרופיל אישי של איטה -->
+          <div class="cta-profile">
+            <img
+              src="ChatGPT Image Mar 9, 2026, 10_07_52 PM.png"
+              alt="איטה שיין"
+              class="cta-photo"
+            />
+            <div class="cta-profile-text">
+              <div class="cta-profile-name">איטה שיין</div>
+              <div class="cta-profile-title">NLP Practitioner · ליווי קריירה ותעסוקה לנשים</div>
+              <p class="cta-profile-bio">
+                נעים מאוד, אני איטה שיין ואני מלווה תהליכי קריירה ותעסוקה של נשים.
+                אני כאן כדי להיות לצידך בדיוק ברגעים האלו, ולהפוך את החשש לביטחון עצמי
+                שמוביל אותך לתוצאות.
+              </p>
+
+              <div class="cta-invitation">
+                <p class="cta-invitation-text">
+                  מפגש אחד איתי יכול לשנות את הכיוון שלך —<br>
+                  נברר יחד מה עוצר אותך, נבנה ביטחון אמיתי,<br>
+                  ותצאי עם צעד ראשון ברור 💜
+                </p>
+                <span class="cta-invitation-cue">↓ הכפתור ממתין לך כאן למטה</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- פנל רגשי -->
+        <div class="cta-panel">
+          <div class="cta-panel-header">
+            <div class="cta-panel-icon emotional">💜</div>
+            <div>
+              <div class="cta-panel-title">החלק הרגשי</div>
+              <div class="cta-panel-subtitle">כי הדרך מתחילה מבפנים</div>
+            </div>
+          </div>
+          <div class="cta-items">
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>בניית ביטחון עצמי מנצח לראיונות עבודה</span>
+            </div>
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>שחרור פחדים מהשינוי ומה שעומד מולך</span>
+            </div>
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>דיוק המצפן המקצועי שלך — מה את באמת רוצה</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- פנל פרקטי -->
+        <div class="cta-panel">
+          <div class="cta-panel-header">
+            <div class="cta-panel-icon practical">📄</div>
+            <div>
+              <div class="cta-panel-title">החלק הפרקטי</div>
+              <div class="cta-panel-subtitle">כלים אמיתיים שתיקחי איתך</div>
+            </div>
+          </div>
+          <div class="cta-items">
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>דיוק קורות החיים שלך כך שיפתחו לך דלתות</span>
+            </div>
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>מאגר שאלות נפוצות מראיונות — כדי שתגיעי מוכנה באמת</span>
+            </div>
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>הכנה להצגה עצמית שגורמת לצד השני לזכור אותך</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- פנל ליווי מתמשך -->
+        <div class="cta-panel">
+          <div class="cta-panel-header">
+            <div class="cta-panel-icon ongoing">🤝</div>
+            <div>
+              <div class="cta-panel-title">ליווי צמוד עד לחתימה</div>
+              <div class="cta-panel-subtitle">אפשרות להמשיך יד ביד</div>
+            </div>
+          </div>
+          <div class="cta-items">
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>נוכל להמשיך יחד בתהליך עד לרגע המרגש מול המעסיק</span>
+            </div>
+            <div class="cta-item">
+              <div class="cta-item-dot"></div>
+              <span>הדרך לקריירה שאת אוהבת תהיה בטוחה, נעימה ומדויקת</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- מחיר -->
+        <div class="cta-price-box">
+          <div class="cta-price-label">
+            <strong>מפגש ראשון</strong>
+            שיחת היכרות וייעוץ אישי
+          </div>
+          <div>
+            <div class="cta-price-amount">₪600</div>
+            <div class="cta-price-note">60 דקות · אונליין / פנים אל פנים</div>
+          </div>
+        </div>
+
+        <!-- טקסט סיום -->
+        <div class="cta-closing">
+          בואי נהפוך את הבלבול הזה לקריירה שאת באמת אוהבת 💜
+        </div>
+
+        <!-- כפתור WhatsApp -->
+        <a id="wa-link" href="#" class="btn-whatsapp" target="_blank" rel="noopener">
+          <span class="wa-icon">📱</span>
+          מחכה לך בוואטסאפ לשיחה אישית ובלי לחץ
+        </a>
+
+        <!-- כפתור PDF -->
+        <button class="btn-pdf" id="btn-pdf" onclick="savePDF()">
+          📄 שמרי את התוצאות שלך כ-PDF
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /app-wrap -->
+
+<!-- Scripts (סדר חשוב!) -->
+<script src="questions.js"></script>
+<script src="careers.js"></script>
+<script src="scoring.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
