@@ -1088,13 +1088,20 @@ body {
 @media print {
   body { background: white; }
   .app-wrap { box-shadow: none; border-radius: 0; margin: 0; max-width: 100%; }
-  #landing, #quiz, #loading { display: none !important; }
+  #landing, #quiz, #loading, #timing { display: none !important; }
   #results { display: flex !important; padding: 0; }
   .results-header { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .match-body { display: flex !important; }
   .cta-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   .btn-whatsapp, .btn-pdf, .match-toggle { display: none !important; }
   .match-bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* מניעת חיתוך באמצע נושאים */
+  .insight-card { page-break-after: always; break-after: page; }
+  .match-card { page-break-inside: avoid; break-inside: avoid; }
+  .match-card:first-of-type { page-break-before: always; break-before: page; }
+  .cta-card { page-break-before: always; break-before: page; }
+  .radar-wrap { page-break-inside: avoid; break-inside: avoid; }
 }
 
 /* ===== Error / Retry ===== */

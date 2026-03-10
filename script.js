@@ -604,7 +604,7 @@ function buildWAMessage(matches, answers, path, timing) {
     now:       '🔥 מוכנה להתחיל עכשיו',
     months:    '📅 בוחנת אפשרויות לחודשים הקרובים',
     year:      '🗓 מתכננת לשנה הקרובה',
-    exploring: '🔍 באה לראות מה יצא',
+    exploring: '🔍 סקרנית לגלות את האפשרויות שלי',
   };
   const pathMap = {
     A: 'סיום שירות צבאי',
@@ -655,7 +655,13 @@ function buildWAMessage(matches, answers, path, timing) {
 
   const age        = ageMap[answers['P1']]      ? `גיל: ${ageMap[answers['P1']]}` : '';
   const situation  = pathMap[path]               ? `מצב: ${pathMap[path]}` : '';
-  const why        = answers['P4']               ? `למה כאן: ${answers['P4']}` : '';
+  const whyMap = {
+    lost:      'לא יודעת מה אני רוצה — מחפשת כיוון',
+    validate:  'יש לי רעיון, רוצה אישור או פרספקטיבה',
+    check_fit: 'רוצה לדעת אם הנתיב שבחרתי מתאים לי',
+    inspire:   'מחפשת השראה ואפשרויות שלא חשבתי עליהן',
+  };
+  const why        = whyMap[answers['P4']]       ? `למה כאן: ${whyMap[answers['P4']]}` : '';
   const study      = studyMap[answers['F1']]     ? `נכונות ללמוד: ${studyMap[answers['F1']]}` : '';
   const env        = envMap[answers['L3']]       ? `סביבה מועדפת: ${envMap[answers['L3']]}` : '';
   const satisf     = satisfactionMap[answers['L7']] ? `מה נותן סיפוק: ${satisfactionMap[answers['L7']]}` : '';
