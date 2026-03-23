@@ -49,10 +49,9 @@ function renderQuestion() {
   const card = $('question-card');
   card.innerHTML = renderQuestionHTML(q);
 
-  // Block ghost clicks for 450ms — on iOS a tap produces a phantom click ~300ms later
-  // that would land on the new question's button at the same screen position
-  card.style.pointerEvents = 'none';
-  setTimeout(() => { card.style.pointerEvents = ''; }, 450);
+  // Block selectSingle/selectScale for 500ms to absorb iOS ghost clicks (~300ms after tap)
+  _blocked = true;
+  setTimeout(() => { _blocked = false; }, 500);
 
   restoreAnswer(q);
 
@@ -132,7 +131,13 @@ function renderQuestionHTML(q) {
 }
 
 // ===== Selection handlers =====
+let _blocked = false;   // blocks ghost-click / double-tap on the NEXT question
+let _advTimer = null;   // prevents two goNext() timers running at once
+
 function selectSingle(btn, qId) {
+  if (_blocked) return;
+  clearTimeout(_advTimer);
+
   const container = btn.closest('.options-grid');
   container.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
@@ -148,7 +153,7 @@ function selectSingle(btn, qId) {
   }
 
   updateNextBtn(state.questions[state.currentIdx]);
-  setTimeout(() => goNext(), 350);
+  _advTimer = setTimeout(() => goNext(), 350);
 }
 
 function selectMulti(btn, qId, max) {
@@ -166,6 +171,9 @@ function selectMulti(btn, qId, max) {
 }
 
 function selectScale(btn, qId) {
+  if (_blocked) return;
+  clearTimeout(_advTimer);
+
   const container = btn.closest('.scale-buttons');
   container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');

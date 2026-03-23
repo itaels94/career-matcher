@@ -239,9 +239,11 @@ body {
   touch-action: manipulation;
 }
 
-.option-btn:hover {
-  border-color: var(--blue);
-  background: var(--blue-light);
+@media (hover: hover) {
+  .option-btn:hover {
+    border-color: var(--blue);
+    background: var(--blue-light);
+  }
 }
 
 .option-btn.selected {
@@ -289,10 +291,12 @@ body {
   touch-action: manipulation;
 }
 
-.scale-btn:hover {
-  border-color: var(--blue);
-  background: var(--blue-light);
-  color: var(--navy);
+@media (hover: hover) {
+  .scale-btn:hover {
+    border-color: var(--blue);
+    background: var(--blue-light);
+    color: var(--navy);
+  }
 }
 
 .scale-btn.selected {
