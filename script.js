@@ -49,6 +49,11 @@ function renderQuestion() {
   const card = $('question-card');
   card.innerHTML = renderQuestionHTML(q);
 
+  // Block ghost clicks for 450ms — on iOS a tap produces a phantom click ~300ms later
+  // that would land on the new question's button at the same screen position
+  card.style.pointerEvents = 'none';
+  setTimeout(() => { card.style.pointerEvents = ''; }, 450);
+
   restoreAnswer(q);
 
   $('btn-back').style.display = state.currentIdx === 0 ? 'none' : 'flex';

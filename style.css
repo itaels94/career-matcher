@@ -236,6 +236,7 @@ body {
   text-align: right;
   transition: var(--transition);
   line-height: 1.4;
+  touch-action: manipulation;
 }
 
 .option-btn:hover {
@@ -285,6 +286,7 @@ body {
   color: var(--text-soft);
   cursor: pointer;
   transition: var(--transition);
+  touch-action: manipulation;
 }
 
 .scale-btn:hover {
