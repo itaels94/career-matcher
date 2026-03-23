@@ -688,7 +688,7 @@ function buildWAMessage(matches, answers, path, timing) {
 
 // ===== Radar Chart (SVG) =====
 function renderRadarChart(answers) {
-  const cx = 115, cy = 115, r = 80;
+  const cx = 130, cy = 130, r = 80;
   const skills = [
     { label: 'טכנולוגיה',  val: answers['S1'] || 1 },
     { label: 'תקשורת',     val: answers['S2'] || 1 },
@@ -734,7 +734,7 @@ function renderRadarChart(answers) {
   return `
     <div class="radar-wrap">
       <div class="radar-title">הפרופיל שלך</div>
-      <svg viewBox="0 0 230 230" xmlns="http://www.w3.org/2000/svg" class="radar-svg">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" class="radar-svg">
         ${grid}${axes}${dataPolygon}${dots}${labels}
       </svg>
     </div>`;
