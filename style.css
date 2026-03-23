@@ -771,6 +771,7 @@ body {
   flex-shrink: 0;
   border: 4px solid #d0bff0;
   box-shadow: 0 4px 20px rgba(124,92,191,0.3);
+  transform: translateZ(0); /* iOS overflow clip fix */
 }
 
 .cta-photo {
@@ -1153,12 +1154,28 @@ body {
   /* Layout כללי */
   .screen { padding: 20px 16px; }
 
-  /* דף פתיחה */
-  #landing { padding: 32px 16px 48px; }
+  /* דף פתיחה — Issue 1: יישור לראש במקום מרכז */
+  #landing { justify-content: flex-start; padding: 20px 16px 48px; }
   .landing-title { font-size: 2rem; line-height: 1.2; }
   .landing-sub { font-size: 0.95rem; }
 
-  /* שאלון */
+  /* שאלון — Issues 2+4: layout קבוע כך שנווט תמיד גלוי */
+  #quiz {
+    height: 100vh;
+    height: -webkit-fill-available;
+    overflow: hidden;
+  }
+  .quiz-header { flex-shrink: 0; }
+  .question-card {
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: 0;
+    padding: 20px 16px 12px;
+  }
+  .quiz-nav { flex-shrink: 0; }
+
+  /* שאלות */
   .question-text { font-size: 1.05rem; }
   .option-btn { font-size: 0.95rem; padding: 14px 14px; }
   .scale-buttons { gap: 6px; }
@@ -1177,8 +1194,8 @@ body {
   /* Insight */
   .insight-card { padding: 16px; }
 
-  /* תמונת פרופיל */
-  .cta-photo { width: 150px; height: 150px; }
+  /* Issue 5: תמונת פרופיל — resize wrap, not the image inside */
+  .photo-wrap { width: 150px; height: 150px; }
 
   /* כפתור ווצאפ */
   .btn-whatsapp { font-size: 1rem; padding: 16px 20px; width: 100%; justify-content: center; }

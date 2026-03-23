@@ -133,6 +133,11 @@ function selectSingle(btn, qId) {
   btn.classList.add('selected');
   state.answers[qId] = btn.dataset.value;
 
+  // Clear forward answers so next question starts fresh
+  for (let i = state.currentIdx + 1; i < state.questions.length; i++) {
+    delete state.answers[state.questions[i].id];
+  }
+
   if (qId === 'P3') {
     state.path = btn.dataset.value;
   }
@@ -160,6 +165,12 @@ function selectScale(btn, qId) {
   container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   state.answers[qId] = Number(btn.dataset.value);
+
+  // Clear forward answers so next question starts fresh
+  for (let i = state.currentIdx + 1; i < state.questions.length; i++) {
+    delete state.answers[state.questions[i].id];
+  }
+
   updateNextBtn(state.questions[state.currentIdx]);
   setTimeout(() => goNext(), 350);
 }
