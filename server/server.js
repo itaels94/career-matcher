@@ -23,6 +23,9 @@ app.use('/api/', rateLimit({
   message: { error: 'יותר מדי בקשות. נסי שוב בעוד שעה.' },
 }));
 
+// ===== GET /health — keeps Render server warm =====
+app.get('/health', (req, res) => res.json({ status: 'ok' }));
+
 // ===== POST /api/analyze =====
 app.post('/api/analyze', async (req, res) => {
   const { profile, path, matches, freeText, studyWillingness } = req.body;
@@ -194,6 +197,11 @@ ${freeText ? `בלי פחד מכישלון, היא אמרה: "${freeText}"` : ''
 כתבי JSON בלבד.
   `.trim();
 }
+
+// ===== 404 handler =====
+app.use((req, res) => {
+  res.status(404).sendFile(path.join(__dirname, '../404.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on http://localhost:${PORT}`);

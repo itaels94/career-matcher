@@ -1159,27 +1159,22 @@ body {
   .landing-title { font-size: 2rem; line-height: 1.2; }
   .landing-sub { font-size: 0.95rem; }
 
-  /* שאלון — Issues 2+4: layout קבוע כך שנווט תמיד גלוי */
-  #quiz {
-    height: 100vh;
-    height: -webkit-fill-available;
-    overflow: hidden;
-  }
-  .quiz-header { flex-shrink: 0; }
-  .question-card {
-    flex: 1;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    min-height: 0;
-    padding: 20px 16px 12px;
-  }
-  .quiz-nav { flex-shrink: 0; }
-
-  /* שאלות */
+  /* שאלון */
+  .question-card { padding: 20px 16px 12px; }
   .question-text { font-size: 1.05rem; }
   .option-btn { font-size: 0.95rem; padding: 14px 14px; }
   .scale-buttons { gap: 6px; }
   .scale-btn { height: 46px; font-size: 0.88rem; min-width: 38px; }
+
+  /* Nav תמיד גלוי בתחתית המסך — Issues 2+4 */
+  .quiz-nav {
+    position: sticky;
+    bottom: 0;
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    padding: 10px 16px 20px;
+    z-index: 10;
+  }
 
   /* דף תוצאות - כותרת */
   .results-header { padding: 24px 16px 20px; }

@@ -182,6 +182,9 @@ function saveText(qId, val) {
 
 // ===== Restore saved answer =====
 function restoreAnswer(q) {
+  // Single/scale must always start fresh — user must actively re-select to advance
+  if (q.type === 'single' || q.type === 'scale') return;
+
   const saved = state.answers[q.id];
   if (!saved) return;
 
@@ -770,4 +773,8 @@ function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 // ===== Init =====
 document.addEventListener('DOMContentLoaded', () => {
   showScreen('landing');
+  // Warm up the Render server so it's ready when user finishes the quiz
+  if (window.location.hostname !== 'localhost') {
+    fetch('https://career-matcher-server.onrender.com/health', { method: 'GET' }).catch(() => {});
+  }
 });
