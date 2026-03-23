@@ -1139,3 +1139,45 @@ body {
   .app-wrap { border-radius: 24px; margin: 32px auto; min-height: auto; box-shadow: var(--shadow); }
   #landing { border-radius: 24px 24px 0 0; }
 }
+
+/* ===== Mobile (עד 480px) ===== */
+@media (max-width: 480px) {
+  /* Layout כללי */
+  .screen { padding: 20px 16px; }
+
+  /* דף פתיחה */
+  #landing { padding: 32px 16px 48px; }
+  .landing-title { font-size: 2rem; line-height: 1.2; }
+  .landing-sub { font-size: 0.95rem; }
+
+  /* שאלון */
+  .question-text { font-size: 1.05rem; }
+  .option-btn { font-size: 0.95rem; padding: 14px 14px; }
+  .scale-buttons { gap: 6px; }
+  .scale-btn { height: 46px; font-size: 0.88rem; min-width: 38px; }
+
+  /* דף תוצאות - כותרת */
+  .results-header { padding: 24px 16px 20px; }
+  .results-header h2 { font-size: 1.35rem; }
+  .results-header p { font-size: 0.88rem; }
+
+  /* כרטיסי התאמה */
+  .match-card { padding: 16px; }
+  .match-title { font-size: 1rem; }
+  .match-score { font-size: 1.2rem; }
+
+  /* Insight */
+  .insight-card { padding: 16px; }
+
+  /* תמונת פרופיל */
+  .cta-photo { width: 150px; height: 150px; }
+
+  /* כפתור ווצאפ */
+  .btn-whatsapp { font-size: 1rem; padding: 16px 20px; width: 100%; justify-content: center; }
+
+  /* כפתור PDF */
+  .btn-pdf { width: 100%; justify-content: center; }
+
+  /* Radar chart */
+  .radar-wrap canvas { max-width: 100%; height: auto !important; }
+}
